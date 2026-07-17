@@ -3,112 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى رورو الجميلة ❤️</title>
+    <title>مفاجأة خاصة لـ رورو 🌸</title>
     <link rel="stylesheet" href="style.css">
-    <!-- مكتبة أيقونات FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- 1. صفحة الترحيب الأولى (Splash Screen) -->
-    <div id="welcome-screen" class="welcome-overlay">
-        <div class="welcome-card">
-            <div class="welcome-avatar">
-                <img src="ransy.jpg" alt="Ransy">
-            </div>
-            <h2>Ransy ❤️</h2>
-            <p class="tap-instruction">اضغطي على القلب يا رورو 😉👇</p>
-            <button id="entry-heart-btn" class="welcome-heart-btn">❤️</button>
+    <!-- 1. شاشة قفل الباسورد -->
+    <div id="lock-screen" class="screen">
+        <div class="lock-card">
+            <div class="flower-icon">🌸✨</div>
+            <h2>مرحباً بكِ يا رورو</h2>
+            <p>أدخلي كلمة السر لفتح المفاجأة 😉</p>
+            <input type="password" id="password-input" placeholder="اكتبِ كلمة السر هنا...">
+            <button onclick="checkPassword()" class="btn">افتحي البوابة ✨</button>
+            <p id="error-msg" class="error-text"></p>
         </div>
     </div>
 
-    <!-- موسيقى الخلفية -->
-    <audio id="bg-music" loop>
-        <source src="music.mp3" type="audio/mp3">
-    </audio>
-
-    <!-- زرار تشغيل/إيقاف الموسيقى عائم للتحكم -->
-    <button id="music-btn" class="music-control">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <!-- تأثير القلوب المتساقطة -->
-    <div class="hearts-container" id="heartsContainer"></div>
-
-    <!-- 2. محتوى الموقع الرئيسي -->
-    <div class="container main-content" id="main-content">
-        <!-- الهيدر باسم رانسي -->
+    <!-- 2. الشاشة الرئيسية بعد فتح القفل -->
+    <div id="main-screen" class="screen hidden">
         <header>
-            <div class="avatar-container">
-                <img src="ransy.jpg" alt="Ransy" class="profile-pic">
-            </div>
-            <h1 class="glow-text">Ransy ❤️</h1>
-            <p class="subtitle">كل ثانية وأنتِ معي</p>
+            <h1 class="fade-in">اختارِ كارت واحد فقط يا رورو! 🤔🌸</h1>
+            <p class="fade-in">خلف كل كارت يوجد سؤال خاص لكِ...</p>
         </header>
 
-        <!-- العداد التنازلي الشيك -->
-        <section class="timer-section">
-            <h3>بقالنا مع بعض:</h3>
-            <div id="countdown" class="timer">جاري حساب اللحظات...</div>
-        </section>
-
-        <!-- الرسالة الخاصة -->
-        <section class="love-letter">
-            <h2>💌 To My Beautiful Ransy ❤️</h2>
-            <p>أحب أقولك إنك أحلى حاجة حصلتلي السنة دي، بجد.</p>
-            <p>يمكن مش قادر أكون معاكي في اليوم المميز ده، وده مضايقني، لكن حبيت أعملك حاجة تفضل معاكي وتفكرك قد إيه أنا بحبك.</p>
-            <p>مش عاوزك أبدًا تحسي إني مقصر معاكي، حتى لو الظروف مش دايمًا في صالحي.</p>
-            <p class="funny-note">وبعدين... مع إنك كارفالي شوية 😂❤️ <br> بس مش مشكلة...</p>
-            <p>أنا لزقة فيكي، وبحبك، ومالكيش فيه بقى... ده نصيبك. 🤍</p>
-            <p>بحب ضحكتك، وكلامك، وطريقتك، وكل التفاصيل الصغيرة اللي فيكي.</p>
-            <p>وجودك في حياتي خلاني أحسن، وكل يوم بدعي ربنا يكرمنا ونكمل حياتنا سوا.</p>
-            <p class="signature">بحبك يا رورو... أكتر مما الكلمات تقدر توصف. ❤️</p>
-        </section>
-
-        <!-- ألبوم الصور والفيديو (كتاب من 4 صفحات) -->
-        <section class="gallery-section">
-            <h3>صور المزه بتاعتي 🦊❤️</h3>
-            <div class="book-container">
-                <div class="book-slider" id="bookSlider">
-                    <div class="book-page"><img src="img1.jpg" alt="صورة 1"></div>
-                    <div class="book-page"><img src="img2.jpg" alt="صورة 2"></div>
-                    <div class="book-page"><img src="img3.jpg" alt="صورة 3"></div>
-                    <!-- الصفحة الرابعة هي الفيديو المميز (يدعم التشغيل التلقائي والكتم الافتراضي) -->
-                    <div class="book-page video-page">
-                        <video id="love-video" playsinline controls autoplay muted>
-                            <source src="video.mp4" type="video/mp4">
-                            متصفحك لا يدعم تشغيل الفيديو.
-                        </video>
-                    </div>
-                </div>
-                <!-- أزرار التقليب يمين وشمال -->
-                <div class="book-controls">
-                    <button id="prev-page-btn" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
-                    <span id="page-number">1 / 4</span>
-                    <button id="next-page-btn" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+        <!-- منطقة الكروت -->
+        <div class="cards-container" id="cards-container">
+            <!-- الكارت الأول -->
+            <div class="card" onclick="selectCard(this, 'ما هي أكثر صفة تحبينها في سيفو؟ 🥺❤️')">
+                <div class="card-inner">
+                    <div class="card-front">🌸 الكارت الأول</div>
                 </div>
             </div>
-        </section>
 
-        <!-- أسباب حبي ليكي تفاعلية -->
-        <section class="reasons-section">
-            <h3>❤️ Why I Love You</h3>
-            <div class="reasons-box">
-                <p id="reason-text" class="reason-fade">اضغطي على القلب عشان تعرفي الأسباب 😉👇</p>
-                <button id="next-reason-btn" class="heart-btn">❤️</button>
+            <!-- الكارت الثاني -->
+            <div class="card" onclick="selectCard(this, 'ما هي أجمل ذكرى تجمعنا معاً ولا يمكن أن تنسيها؟ ☕✨')">
+                <div class="card-inner">
+                    <div class="card-front">💎 الكارت الثاني</div>
+                </div>
             </div>
-        </section>
 
-        <!-- الوعد في النهاية -->
-        <footer class="promise-section">
-            <div class="promise-card">
-                <h3>🤝 الـوعــد ✨</h3>
-                <p>أوعدك إني أفضل أحبك، وأقف جنبك، وأفرح لفرحك، وأكون سندك على قد ما أقدر.</p>
-                <p class="highlight">وربنا يديمك نعمة في حياتي، ويجمعنا دايمًا على خير. 🤍</p>
+            <!-- الكارت الثالث -->
+            <div class="card" onclick="selectCard(this, 'لو كان بإمكانك السفر معي الآن، إلى أين سنذهب؟ ✈️🌍')">
+                <div class="card-inner">
+                    <div class="card-front">🎀 الكارت الثالث</div>
+                </div>
             </div>
-        </footer>
+        </div>
+
+        <!-- منطقة إظهار السؤال المختار والعداد -->
+        <div id="question-area" class="hidden">
+            <div class="selected-card-display">
+                <h2 id="display-question"></h2>
+                <div id="timer-box">
+                    <span id="countdown">10</span> ثوانٍ متبقية للقراءة...
+                </div>
+            </div>
+        </div>
+
+        <!-- الشاشة النهائية بعد انتهاء الوقت -->
+        <div id="final-screen" class="hidden">
+            <div class="final-card">
+                <div class="heart-icon">💖</div>
+                <h2>انتهى الوقت! 🥰</h2>
+                <h3 class="highlight-text">ردي على سيفو بإجابة السؤال دلوقتي 📱✨</h3>
+            </div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- إضافة الجافا سكريبت للتحكم بالتفاعلات -->
+    <script>
+        // 1. التحقق من كلمة السر
+        function checkPassword() {
+            const password = document.getElementById('password-input').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+            
+            // كلمة السر roro أو Roro
+            if (password.toLowerCase() === 'roro') {
+                document.getElementById('lock-screen').classList.add('hidden');
+                document.getElementById('main-screen').classList.remove('hidden');
+            } else {
+                errorMsg.innerText = "كلمة السر غير صحيحة يا جميلة! جربي تاني 🌸";
+                errorMsg.style.display = "block";
+            }
+        }
+
+        // 2. اختيار الكارت وعرض السؤال
+        function selectCard(cardElement, questionText) {
+            const container = document.getElementById('cards-container');
+            const cards = document.querySelectorAll('.card');
+            
+            // إخفاء باقي الكروت غير المختارة بتأثير حركي
+            cards.forEach(card => {
+                if (card !== cardElement) {
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.8)';
+                    setTimeout(() => card.style.display = 'none', 500);
+                }
+            });
+
+            // تمييز الكارت المختار وتكبيره قليلاً
+            cardElement.classList.add('selected');
+            
+            // إظهار السؤال والبدء في العد التنازلي
+            setTimeout(() => {
+                container.style.display = 'none';
+                document.getElementById('question-area').classList.remove('hidden');
+                document.getElementById('display-question').innerText = questionText;
+                
+                startTimer();
+            }, 600);
+        }
+
+        // 3. العداد التنازلي (10 ثواني)
+        function startTimer() {
+            let timeLeft = 10;
+            const countdownEl = document.getElementById('countdown');
+            
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                countdownEl.innerText = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    // إخفاء الكروت تماماً وإظهار الرسالة النهائية لسيفو
+                    document.getElementById('question-area').classList.add('hidden');
+                    document.getElementById('final-screen').classList.remove('hidden');
+                }
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
